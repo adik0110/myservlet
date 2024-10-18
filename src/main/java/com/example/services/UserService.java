@@ -15,14 +15,4 @@ public class UserService {
     public boolean registerUser(User user) {
         return userDAO.saveUser(user);
     }
-
-    // Метод для обновления пароля пользователя
-    public boolean updateUserPassword(User user) {
-        return userDAO.updateUserPassword(user);
-    }
-
-    // Метод для обновления пользователя (например, обновление био и аватара)
-    public void updateUser(User user) {
-        userDAO.updateUser(user);
-    }
 }

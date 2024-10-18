@@ -65,35 +65,4 @@ public class UserDAO {
         }
         return false;
     }
-
-    // Метод для обновления пароля пользователя
-    public boolean updateUserPassword(User user) {
-        try (Connection conn = DBConnection.getConnection()) {
-            String query = "UPDATE users SET password = ? WHERE email = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, user.getPassword());
-            stmt.setString(2, user.getEmail()); // Предполагаем, что у пользователя уникальный email
-
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // Метод для обновления данных пользователя (например, био и аватара)
-    public void updateUser(User user) {
-        try (Connection conn = DBConnection.getConnection()) {
-            String query = "UPDATE users SET bio = ?, avatar = ? WHERE email = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, user.getBio());
-            stmt.setString(2, user.getAvatar());
-            stmt.setString(3, user.getEmail());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
