@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 
 <html>
 <head>
@@ -21,9 +22,9 @@
         <div class="course-card">
             <h2>${course.title}</h2>
             <p>${course.description}</p>
-            <p><strong>Subject:</strong> ${course.subjectName}</p> <!-- Название предмета -->
-            <p><strong>Teacher:</strong> ${course.teacherName}</p> <!-- Имя преподавателя -->
-            <a href="course?action=view&id=${course.id}" class="btn-view">View Details</a>
+            <p><strong>Предмет:</strong> ${course.subjectName}</p> <!-- Название предмета -->
+            <p><strong>Преподаватель:</strong> ${course.teacherName}</p> <!-- Имя преподавателя -->
+            <a href="course?action=view&id=${course.id}" class="btn-view">Подробнее</a>
         </div>
     </c:forEach>
 </div>
