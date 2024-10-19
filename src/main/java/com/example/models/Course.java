@@ -4,13 +4,15 @@ public class Course {
     private int id;
     private String title;
     private String description;
-    private int teacherId;
+    private String subjectName;
+    private String teacherName;
 
-    public Course(int id, String title, String description, int teacherId) {
+    public Course(int id, String title, String description, String subjectName, String teacherName) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.teacherId = teacherId;
+        this.subjectName = subjectName;
+        this.teacherName = teacherName;
     }
 
     public Course() {
@@ -41,11 +43,15 @@ public class Course {
         this.description = description;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public String getSubjectName() {return subjectName;}
+
+    public void setSubjectName(String subjectName) {this.subjectName = subjectName;}
+
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

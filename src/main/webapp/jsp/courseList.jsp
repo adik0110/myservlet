@@ -4,7 +4,7 @@
 <head>
     <title>Available Courses</title>
     <!-- Подключаем файл стилей -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/courseList.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/courseList.css?">
 </head>
 <body>
 
@@ -18,10 +18,12 @@
 <!-- Таблица курсов -->
 <div class="course-table">
     <c:forEach var="course" items="${courses}">
-        <div class="course-cell">
+        <div class="course-card">
             <h2>${course.title}</h2>
             <p>${course.description}</p>
-            <a href="course?action=view&id=${course.id}">View Details</a>
+            <p><strong>Subject:</strong> ${course.subjectName}</p> <!-- Название предмета -->
+            <p><strong>Teacher:</strong> ${course.teacherName}</p> <!-- Имя преподавателя -->
+            <a href="course?action=view&id=${course.id}" class="btn-view">View Details</a>
         </div>
     </c:forEach>
 </div>

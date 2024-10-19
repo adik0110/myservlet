@@ -21,9 +21,8 @@ public class SubjectDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                subjectName = rs.getString("name");
+                subjectName = rs.getString("name");  // Получаем название предмета
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

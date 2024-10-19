@@ -65,4 +65,24 @@ public class UserDAO {
         }
         return false;
     }
+
+    public String getUserNameById(int teacherId) {
+        String teacherName = null;
+        String sql = "SELECT username FROM users WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, teacherId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                teacherName = rs.getString("username");  // Получаем имя преподавателя
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return teacherName;
+    }
 }

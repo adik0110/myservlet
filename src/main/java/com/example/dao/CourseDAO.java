@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDAO {
+    private SubjectDAO subjectDAO = new SubjectDAO();  // DAO для subjects
+    private UserDAO userDAO = new UserDAO();
 
     // Метод для добавления нового курса
     public void addCourse(Course course) {
@@ -96,6 +98,8 @@ public class CourseDAO {
                 course.setId(rs.getInt("id"));
                 course.setTitle(rs.getString("title"));
                 course.setDescription(rs.getString("description"));
+                course.setSubjectName(subjectDAO.getSubjectNameById(rs.getInt("subjectId")));
+                course.setTeacherName(userDAO.getUserNameById(rs.getInt("teacherId")));
                 courses.add(course);
             }
 
@@ -105,4 +109,5 @@ public class CourseDAO {
 
         return courses;
     }
+
 }
