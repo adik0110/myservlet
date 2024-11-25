@@ -20,9 +20,7 @@
     </c:if>
 
     <!-- Форма для авторизации -->
-    <form action="${pageContext.request.contextPath}/user" method="post">
-
-    <input type="hidden" name="action" value="login">
+    <form method="post">
 
         <div class="form-group">
             <label for="email">Email:</label>
@@ -39,7 +37,7 @@
         </div>
     </form>
 
-    <p>Don't have an account? <a href="register.jsp">Register here</a></p>
+    <p>Don't have an account? <a href="register">Register here</a></p>
 </div>
 </body>
 </html>

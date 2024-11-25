@@ -21,8 +21,7 @@
     <p class="error">${errorMessage}</p>
   </c:if>
 
-  <form action="${pageContext.request.contextPath}/user" method="post">
-    <input type="hidden" name="action" value="register"> <!-- скрытое поле для action -->
+  <form method="post">
 
     <div class="form-group">
       <label for="username">Username</label>
@@ -58,7 +57,7 @@
     </div>
   </form>
 
-  <p style="text-align: center;">Already have an account? <a href="${pageContext.request.contextPath}/jsp/login.jsp">Login here</a></p>
+  <p style="text-align: center;">Already have an account? <a href="login">Login here</a></p>
 </div>
 </body>
 </html>

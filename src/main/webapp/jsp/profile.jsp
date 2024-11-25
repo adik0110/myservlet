@@ -15,7 +15,7 @@
     <p>Биография: ${user.bio}</p>
     <p>Роль: ${user.role}</p>
 
-    <form action="user" method="post">
+    <form action="logout" method="post">
         <input type="hidden" name="action" value="logout">
         <button type="submit" class="logout-button">Logout</button>
     </form>
