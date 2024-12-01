@@ -30,7 +30,7 @@
 </div>
 
 <!-- Кнопка добавления нового курса для преподавателя -->
-<c:if test="${userRole == 'teacher'}">
+<c:if test="${userRole == 'Преподаватель'}">
     <a href="course?action=add" class="add-course-btn">Add New Course</a>
 </c:if>
 

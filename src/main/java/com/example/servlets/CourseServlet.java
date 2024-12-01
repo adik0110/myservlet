@@ -1,5 +1,7 @@
 package com.example.servlets;
 
+
+import com.example.models.User;
 import com.example.models.Course;
 import com.example.services.CourseService;
 
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("/course")
@@ -19,9 +22,8 @@ public class CourseServlet extends HttpServlet {
     private CourseService courseService;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        courseService = new CourseService(); // Инициализация сервиса для работы с курсами
+    public void init() {
+        courseService = new CourseService();
     }
 
     @Override
@@ -91,6 +93,12 @@ public class CourseServlet extends HttpServlet {
     // Метод для показа списка курсов
     private void listCourses(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Course> courses = courseService.getAllCourses(); // Получаем список курсов
+        HttpSession session = request.getSession();
+
+        User user = (User) session.getAttribute("user"); // Получаем роль пользователя
+        String userRole = user.getRole();
+
+        request.setAttribute("userRole", userRole);
         request.setAttribute("courses", courses); // Устанавливаем атрибут списка курсов
 
         // Проверяем наличие ошибки при доступе
