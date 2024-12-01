@@ -98,8 +98,8 @@ public class CourseDAO {
                 course.setId(rs.getInt("id"));
                 course.setTitle(rs.getString("title"));
                 course.setDescription(rs.getString("description"));
-                course.setSubjectName(subjectDAO.getSubjectNameById(rs.getInt("subjectId")));
-                course.setTeacherName(userDAO.getUserNameById(rs.getInt("teacherId")));
+                course.setSubjectName(subjectDAO.getSubjectNameById(rs.getInt("subject_id")));
+                course.setTeacherName(userDAO.getUserNameById(rs.getInt("teacher_id")));
                 courses.add(course);
             }
 
