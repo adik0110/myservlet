@@ -20,12 +20,52 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("username"), password, email, rs.getString("avatar"), rs.getString("bio"), rs.getString("role"));
+                user = new User(rs.getInt("id"),
+                        rs.getString("name"),
+                        email,
+                        rs.getString("avatar"),
+                        rs.getString("bio"),
+                        password,
+                        getRoleNameById(rs.getInt("role_id")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public String getRoleNameById(int roleId) {
+        String roleName = null;
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT name FROM roles WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, roleId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                roleName = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roleName;
+    }
+
+    public int getRoleIdByName(String roleName) {
+        int roleId = -1;
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT id FROM roles WHERE name = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, roleName);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                roleId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roleId;
     }
 
     // Метод для сохранения нового пользователя
@@ -34,12 +74,12 @@ public class UserDAO {
             return false;
         }
         try (Connection conn = DBConnection.getConnection()) {
-            String query = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getRole());
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setInt(4, getRoleIdByName(user.getRole()));
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -68,7 +108,7 @@ public class UserDAO {
 
     public String getUserNameById(int teacherId) {
         String teacherName = null;
-        String sql = "SELECT username FROM users WHERE id = ?";
+        String sql = "SELECT name FROM users WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -77,7 +117,7 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                teacherName = rs.getString("username");  // Получаем имя преподавателя
+                teacherName = rs.getString("name");  // Получаем имя преподавателя
             }
         } catch (SQLException e) {
             e.printStackTrace();

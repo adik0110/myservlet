@@ -10,7 +10,7 @@
 <body>
 <div class="profile-container">
     <h1>Profile</h1>
-    <img src="${pageContext.request.contextPath}/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">    <p>Имя: ${user.username}</p>
+    <img src="${pageContext.request.contextPath}/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">    <p>Имя: ${user.name}</p>
     <p>Почта: ${user.email}</p>
     <p>Биография: ${user.bio}</p>
     <p>Роль: ${user.role}</p>

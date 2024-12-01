@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         // Создаем нового пользователя
-        User newUser = new User(0, username, password, email, null, null, role);
+        User newUser = new User(0, username, email, null, null, password, role);
         if (userService.registerUser(newUser)) {
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {

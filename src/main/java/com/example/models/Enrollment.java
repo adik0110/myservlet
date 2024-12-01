@@ -1,37 +1,17 @@
 package com.example.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Enrollment {
     private int id;
-    private int userId;
+    private int studentId; // все инты переделать в названия
     private int courseId;
-
-    public Enrollment(int id, int userId, int courseId) {
-        this.id = id;
-        this.userId = userId;
-        this.courseId = courseId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
+    private Timestamp enrollmentDate;
 }

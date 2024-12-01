@@ -1,59 +1,19 @@
 package com.example.models;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Assignment {
     private int id;
-    private int courseId;
     private String title;
     private String description;
-    private Date dueDate;
-
-    public Assignment(int id, int courseId, String title, String description, Date dueDate) {
-        this.id = id;
-        this.courseId = courseId;
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
+    private int courseId; // сделать courseName
+    private Timestamp endTime;
+    private int status; // тут пока хз
 }
