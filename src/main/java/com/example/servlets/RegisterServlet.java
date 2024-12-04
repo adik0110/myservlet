@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -40,8 +41,11 @@ public class RegisterServlet extends HttpServlet {
             }
         }
 
+        String salt = BCrypt.gensalt();
+        String hashedPassword = BCrypt.hashpw(password, salt);
+
         // Создаем нового пользователя
-        User newUser = new User(0, username, email, null, null, password, role);
+        User newUser = new User(0, username, email, null, null, hashedPassword, role);
         if (userService.registerUser(newUser)) {
             resp.sendRedirect(req.getContextPath() + "/login");
         } else {

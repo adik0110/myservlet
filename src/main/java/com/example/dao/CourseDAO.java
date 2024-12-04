@@ -10,12 +10,13 @@ import java.util.List;
 public class CourseDAO {
     private SubjectDAO subjectDAO = new SubjectDAO();  // DAO для subjects
     private UserDAO userDAO = new UserDAO();
+    private final DBConnection instance = DBConnection.getInstance();
 
     // Метод для добавления нового курса
     public void addCourse(Course course) {
         String sql = "INSERT INTO courses (title, description) VALUES (?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, course.getTitle());
@@ -31,7 +32,7 @@ public class CourseDAO {
     public void updateCourse(Course course) {
         String sql = "UPDATE courses SET title = ?, description = ? WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, course.getTitle());
@@ -48,7 +49,7 @@ public class CourseDAO {
     public void deleteCourse(int courseId) {
         String sql = "DELETE FROM courses WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, courseId);
@@ -64,7 +65,7 @@ public class CourseDAO {
         String sql = "SELECT * FROM courses WHERE id = ?";
         Course course = null;
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, courseId);
@@ -89,7 +90,7 @@ public class CourseDAO {
         String sql = "SELECT * FROM courses";
         List<Course> courses = new ArrayList<>();
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 

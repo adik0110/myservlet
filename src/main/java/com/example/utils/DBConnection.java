@@ -3,64 +3,83 @@ package com.example.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.EmptyStackException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 public class DBConnection {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres"; // URL базы данных
-    private static final String USER = "postgres"; // Имя пользователя базы данных
-    private static final String PASSWORD = "qwerty123456"; // Пароль базы данных
+    private static DBConnection instance;
 
-    public static Connection getConnection() throws SQLException {
+    private Stack<Connection> connections;
+
+    private Set<Connection> usedConnections;
+
+    private static final int MAX_CONNECTIONS = 5;
+
+    private DBConnection() {
+        connections = new Stack<>();
+        usedConnections = new HashSet<>();
+
         try {
-            Class.forName("org.postgresql.Driver"); // Загрузка драйвера PostgreSQL
+            Class.forName("org.postgresql.Driver");
+
+            for (int i = 0; i < MAX_CONNECTIONS; ++i) {
+                Connection connection =
+                        DriverManager.getConnection(
+                                // адрес БД , имя пользователя, пароль
+                                "jdbc:postgresql://localhost:5432/postgres", "postgres", "qwerty123456");
+                connections.push(connection);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD); // Возвращаем соединение
+    }
+
+    public static DBConnection getInstance() {
+        if (instance == null) {
+            synchronized (DBConnection.class) {
+                if (instance == null) {
+                    instance = new DBConnection();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public synchronized Connection getConnection() throws SQLException {
+        Connection connection = null;
+        try {
+            connection = connections.pop();
+            usedConnections.add(connection);
+        } catch (EmptyStackException e) {
+            connection =
+                    DriverManager.getConnection(
+                            "jdbc:postgresql://localhost:5432/postgres", "postgres", "qwerty123456");
+        }
+        return connection;
+    }
+
+    public void destroy() {
+        for (Connection connection : usedConnections ) {
+            try {
+                connection.rollback();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (Connection connection : connections) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
-
-//package com.example.utils;
-//
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
-//
-//public class DBConnection {
-//
-//    private static Connection connection;
-//
-//    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-//    private static final String USER = "postgres";
-//    private static final String PASSWORD = "qwerty123456";
-//
-//    private DBConnection() {
-//        initDb();
-//    }
-//
-//    private void initDb() {
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-//        } catch (ClassNotFoundException | SQLException e) {
-//            throw new RuntimeException("Failed to initialize database connection", e);
-//        }
-//    }
-//
-//    public static synchronized Connection getConnection() {
-//        if (connection == null) {
-//            new DBConnection().initDb();
-//        }
-//        return connection;
-//    }
-//
-//    public static void releaseConnection(Connection connection) {
-//        if (connection != null) {
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                throw new RuntimeException("Failed to close database connection", e);
-//            }
-//        }
-//    }
-//}

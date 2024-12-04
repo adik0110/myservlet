@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Register</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css?"></head>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"></head>
   <script src="${pageContext.request.contextPath}/js/register.js"></script>
   <style>
     /* Стили для скрытия поля по умолчанию */

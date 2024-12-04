@@ -8,11 +8,12 @@ import java.sql.SQLException;
 import com.example.utils.DBConnection;
 
 public class UserDAO {
+    private final DBConnection instance = DBConnection.getInstance();
 
     // Метод для получения пользователя по email и паролю
     public User getUserByEmailAndPassword(String email, String password) {
         User user = null;
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = instance.getConnection()) {
             String query = "SELECT * FROM users WHERE email = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
@@ -36,7 +37,7 @@ public class UserDAO {
 
     public String getRoleNameById(int roleId) {
         String roleName = null;
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = instance.getConnection()) {
             String query = "SELECT name FROM roles WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, roleId);
@@ -53,7 +54,7 @@ public class UserDAO {
 
     public int getRoleIdByName(String roleName) {
         int roleId = -1;
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = instance.getConnection()) {
             String query = "SELECT id FROM roles WHERE name = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, roleName);
@@ -73,7 +74,7 @@ public class UserDAO {
         if (isEmailRegistered(user.getEmail())) {
             return false;
         }
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = instance.getConnection()) {
             String query = "INSERT INTO users (name, email, password, role_id) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, user.getName());
@@ -91,7 +92,7 @@ public class UserDAO {
 
     // Проверка, зарегистрирован ли email
     public boolean isEmailRegistered(String email) {
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = instance.getConnection()) {
             String query = "SELECT COUNT(*) FROM users WHERE email = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
@@ -110,7 +111,7 @@ public class UserDAO {
         String teacherName = null;
         String sql = "SELECT name FROM users WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = instance.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, teacherId);
