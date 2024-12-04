@@ -1,20 +1,25 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f4;
     margin: 0;
-    background-color: #f2f2f2;
+    padding: 0;
+    height: 100vh; /* Высота экрана */
+    display: flex; /* Flexbox для выравнивания */
+    flex-direction: column; /* Разместить элементы вертикально */
+    justify-content: space-between; /* Пространство между блоками */
+    align-items: center;
+    min-height: 100vh; /* Гарантируем, что body занимает всю высоту */
+
 }
 
 .profile-container {
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
     text-align: center;
-    width: 300px;
 }
 
 .profile-container img {
@@ -25,28 +30,33 @@ body {
 }
 
 .profile-container h1 {
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
     font-size: 24px;
+    color: #333;
 }
 
 .profile-container p {
-    margin: 5px 0;
+    margin: 10px 0;
     font-size: 16px;
-    color: #555555;
+    color: #555;
+}
+
+.profile-container .form-group {
+    margin-bottom: 15px;
+    text-align: left; /* Выравнивание текста по левому краю */
 }
 
 .logout-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .logout-button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }

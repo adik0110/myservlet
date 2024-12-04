@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <title>Профиль</title>
     <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <div class="profile-container">
     <h1>Profile</h1>
     <img src="/static/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">
@@ -21,5 +23,6 @@
         <button type="submit" class="logout-button">Logout</button>
     </form>
 </div>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

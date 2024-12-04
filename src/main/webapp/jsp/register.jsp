@@ -6,10 +6,12 @@
   <meta charset="UTF-8">
   <title>Register</title>
   <link rel="stylesheet" href="/static/css/register.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
   <script src="/static/js/register.js"></script>
 </head>
 
 <body>
+<jsp:include page="header.jsp" />
 <div class="register-container">
   <h2>Register</h2>
 
@@ -56,5 +58,6 @@
 
   <p style="text-align: center;">Already have an account? <a href="login">Login here</a></p>
 </div>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -3,46 +3,47 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    height: 100vh; /* Задаем высоту экрана */
+    height: 100vh; /* Высота экрана */
     display: flex; /* Используем Flexbox */
-    justify-content: center; /* Горизонтальное центрирование */
-    align-items: center; /* Вертикальное центрирование */
+    flex-direction: column; /* Разместить элементы вертикально */
+    justify-content: space-between; /* Пространство между блоками */
+    align-items: center;
+    min-height: 100vh; /* Гарантируем, что body занимает всю высоту */
 }
 
 .register-container {
-    width: 400px;
-    padding: 20px;
     background-color: #fff;
-    box-shadow: 0px 0px 10px 0px #ccc;
-    border-radius: 8px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
 }
 
 h2 {
+    margin-bottom: 20px;
     text-align: center;
+    color: #333;
 }
 
 .form-group {
-    width: 95%;
     margin-bottom: 15px;
 }
 
-.form-group label {
+label {
     display: block;
     margin-bottom: 5px;
+    color: #333;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 95%; /* Аналогично стилям логина */
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .form-group button {
@@ -51,8 +52,9 @@ h2 {
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .form-group button:hover {
@@ -61,8 +63,8 @@ h2 {
 
 .error {
     color: red;
-    text-align: center;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 #teacherCodeField {
