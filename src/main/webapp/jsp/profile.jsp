@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
 </head>
 <body>
 <div class="profile-container">
     <h1>Profile</h1>
-    <img src="${pageContext.request.contextPath}/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">    <p>Имя: ${user.name}</p>
+    <img src="/static/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">
+    <p>Имя: ${user.name}</p>
     <p>Почта: ${user.email}</p>
     <p>Биография: ${user.bio}</p>
     <p>Роль: ${user.role}</p>

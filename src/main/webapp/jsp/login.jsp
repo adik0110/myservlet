@@ -1,17 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css?"></head>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
 <body>
 <div class="login-container">
     <h2>Login to Your Account</h2>
 
-    <!-- Если есть сообщение об ошибке -->
+    <!-- Ошибка -->
     <c:if test="${not empty errorMessage}">
         <div class="error-message">
                 ${errorMessage}

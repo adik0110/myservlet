@@ -1,21 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>Register</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css"></head>
-  <script src="${pageContext.request.contextPath}/js/register.js"></script>
-  <style>
-    /* Стили для скрытия поля по умолчанию */
-
-  </style>
+  <link rel="stylesheet" href="/static/css/register.css">
+  <script src="/static/js/register.js"></script>
 </head>
+
 <body>
 <div class="register-container">
   <h2>Register</h2>
-  <!-- Отображение сообщения об ошибке, если есть -->
+
+  <!-- Ошибка -->
   <c:if test="${not empty errorMessage}">
     <p class="error">${errorMessage}</p>
   </c:if>

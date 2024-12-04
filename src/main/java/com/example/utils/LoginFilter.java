@@ -33,8 +33,9 @@ public class LoginFilter implements Filter {
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean registerRequest = httpRequest.getRequestURI().equals(registerURI);
+        boolean stat = httpRequest.getRequestURI().startsWith("/static/");
 
-        if (loggedIn || loginRequest || registerRequest) {
+        if (loggedIn || loginRequest || registerRequest || stat) {
             String userRole = null;
             if (session != null) {
                 User user = (User) session.getAttribute("user"); // Получаем роль пользователя
@@ -64,3 +65,4 @@ public class LoginFilter implements Filter {
     public void destroy() {
     }
 }
+

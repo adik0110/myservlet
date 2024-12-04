@@ -5,7 +5,7 @@
 <head>
     <title>Available Courses</title>
     <!-- Подключаем файл стилей -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/courseList.css?">
+    <link rel="stylesheet" type="text/css" href="/static/css/courseList.css?">
 </head>
 <body>
 
