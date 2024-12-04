@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.example.utils.DBConnection;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserDAO {
     private final DBConnection instance = DBConnection.getInstance();
@@ -14,20 +15,22 @@ public class UserDAO {
     public User getUserByEmailAndPassword(String email, String password) {
         User user = null;
         try (Connection conn = instance.getConnection()) {
-            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+            String query = "SELECT * FROM users WHERE email = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
-            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getInt("id"),
-                        rs.getString("name"),
-                        email,
-                        rs.getString("avatar"),
-                        rs.getString("bio"),
-                        password,
-                        getRoleNameById(rs.getInt("role_id")));
+                BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
+                if (bCrypt.matches(password, rs.getString("password"))) {
+                    user = new User(rs.getInt("id"),
+                            rs.getString("name"),
+                            email,
+                            rs.getString("avatar"),
+                            rs.getString("bio"),
+                            rs.getString("password"),
+                            getRoleNameById(rs.getInt("role_id")));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
