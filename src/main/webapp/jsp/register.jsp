@@ -48,7 +48,7 @@
     <!-- Поле для ввода кода преподавателя (по умолчанию скрыто) -->
     <div class="form-group" id="teacherCodeField">
       <label for="teacherCode">Введите код преподавателя</label>
-      <input type="text" id="teacherCode" name="teacherCode" placeholder="">
+      <input type="password" id="teacherCode" name="teacherCode" placeholder="">
     </div>
 
     <div class="form-group">

@@ -5,11 +5,13 @@
 <head>
     <title>Available Courses</title>
     <!-- Подключаем файл стилей -->
-    <link rel="stylesheet" type="text/css" href="/static/css/courseList.css?">
+    <link rel="stylesheet" href="/static/css/courseList.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 
-<h1>Available Courses</h1>
+<h2>Available Courses</h2>
 
 <!-- Отображение ошибки, если она есть -->
 <c:if test="${not empty errorMessage}">
@@ -33,6 +35,8 @@
 <c:if test="${userRole == 'Преподаватель'}">
     <a href="course?action=add" class="add-course-btn">Add New Course</a>
 </c:if>
+
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>

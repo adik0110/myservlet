@@ -5,13 +5,13 @@
         <h1>Learnify</h1>
     </div>
     <div class="header-right">
+        <a href="course" class="nav-button">Главная</a>
         <c:choose>
             <c:when test="${not empty user}">
                 <a href="my-courses" class="nav-button">Мои курсы</a>
                 <a href="profile" class="nav-button">Профиль</a>
             </c:when>
             <c:otherwise>
-                <a href="" class="nav-button">Главная</a>
                 <a href="register" class="nav-button">Sign Up</a>
                 <a href="login" class="nav-button">Sign In</a>
             </c:otherwise>
