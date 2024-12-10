@@ -8,14 +8,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private UserService userService;
+    final static Logger logger = LogManager.getLogger(LoginServlet.class);
 
     @Override
     public void init() {
@@ -24,6 +25,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("GET request to /login");
         req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
     }
 
@@ -32,18 +34,21 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        // Аутентификация пользователя
+        logger.info("Attempting login for email: {}", email);
+
         User user = userService.authenticateUser(email, password);
 
         if (user != null) {
             // Сохраняем пользователя в сессии
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
+            logger.info("User logged in successfully: {}", user.getEmail());
             resp.sendRedirect(req.getContextPath() + "/profile"); // Перенаправляем на профиль
         } else {
-            // Ошибка аутентификации
-            req.setAttribute("errorMessage", "Invalid email or password");
+            logger.warn("Login failed for email: {}", email);
+            req.setAttribute("errorMessage", "Неверный email или пароль");
             req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
         }
+
     }
 }
