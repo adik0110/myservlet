@@ -55,6 +55,23 @@ public class UserDAO {
         return roleName;
     }
 
+    public String getEmailById(int id) {
+        String email = null;
+        try (Connection conn = instance.getConnection()) {
+            String query = "SELECT email FROM users WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                email = rs.getString("email");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return email;
+    }
+
     public int getRoleIdByName(String roleName) {
         int roleId = -1;
         try (Connection conn = instance.getConnection()) {

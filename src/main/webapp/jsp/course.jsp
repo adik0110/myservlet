@@ -1,19 +1,37 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>${course.title}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="/static/css/course.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-<h1>${course.title}</h1>
-<p>${course.description}</p>
+<jsp:include page="header.jsp" />
+<div class="course-details">
+    <h2>${course.title}</h2>
+    <p><strong>Предмет:</strong> ${course.subjectName}</p>
+    <p><strong>Преподаватель:</strong> ${course.teacherName}</p>
+    <p><strong>Описание:</strong> ${course.description}</p>
 
-<!-- Отображение кнопок редактирования только для преподавателя -->
-<c:if test="${userRole == 'Преподаватель'}">
-    <a href="course?action=edit&id=${course.id}">Edit Course</a>
-    <a href="course?action=delete&id=${course.id}" onclick="return confirm('Are you sure?')">Delete Course</a>
-</c:if>
-
-<!-- Прочая информация о курсе, доступная всем пользователям -->
+    <%-- Проверяем роль пользователя --%>
+    <c:choose>
+        <c:when test="${userRole == 'Студент'}">
+            <a href="/enroll?courseId=${course.id}" class="button">Subscribe</a>
+        </c:when>
+        <c:when test="${userEmail == course.teacherEmail}">
+            <%-- Если роль учителя, показываем кнопку "Редактировать" --%>
+            <a href="/editCourse?courseId=${course.id}" class="button edit-button">Edit Course</a>
+        </c:when>
+        <c:otherwise>
+            <%-- Если роль не определена, показываем сообщение --%>
+            <p>У вас нет прав на редактирование и подписку</p>
+        </c:otherwise>
+    </c:choose>
+</div>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

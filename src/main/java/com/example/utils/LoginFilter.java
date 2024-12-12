@@ -29,13 +29,15 @@ public class LoginFilter implements Filter {
 
         String loginURI = httpRequest.getContextPath() + "/login";
         String registerURI = httpRequest.getContextPath() + "/register";
+        String courseURI = httpRequest.getContextPath() + "/course";
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean registerRequest = httpRequest.getRequestURI().equals(registerURI);
+        boolean courseRequest = httpRequest.getRequestURI().equals(courseURI) && httpRequest.getQueryString() == null;
         boolean stat = httpRequest.getRequestURI().startsWith("/static/");
 
-        if (loggedIn || loginRequest || registerRequest || stat) {
+        if (loggedIn || loginRequest || registerRequest || stat || courseRequest) {
             String userRole = null;
             if (session != null) {
                 User user = (User) session.getAttribute("user"); // Получаем роль пользователя

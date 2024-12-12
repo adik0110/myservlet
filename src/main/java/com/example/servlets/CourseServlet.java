@@ -52,18 +52,14 @@ public class CourseServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user"); // Получаем роль пользователя
-        String userRole = user.getRole();
-
-        request.setAttribute("userRole", userRole);
-        request.setAttribute("courses", courses); // Устанавливаем атрибут списка курсов
-
-        // Проверяем наличие ошибки при доступе
-        String error = request.getParameter("error");
-        if (error != null && error.equals("access_denied")) {
-            request.setAttribute("errorMessage", "You do not have permission to perform this action.");
+        String userRole = null;
+        if (user != null) {
+            userRole = user.getRole();
         }
 
-        // Переход на страницу списка курсов
+        request.setAttribute("userRole", userRole);
+        request.setAttribute("courses", courses);
+
         request.getRequestDispatcher("jsp/courseList.jsp").forward(request, response); // Используем отдельную JSP для списка
     }
 
@@ -73,10 +69,14 @@ public class CourseServlet extends HttpServlet {
         Course course = courseService.getCourseById(courseId);
 
         HttpSession session = request.getSession();
-        String userRole = (String) session.getAttribute("role"); // Получаем роль пользователя
+        User user = (User) session.getAttribute("user");
+        String userEmail = user.getEmail();
+        String userRole = user.getRole();
+        System.out.println(course.getTeacherName());
 
         request.setAttribute("course", course);
-        request.setAttribute("userRole", userRole); // Передаем роль на JSP для проверки прав на редактирование
+        request.setAttribute("userEmail", userEmail);
+        request.setAttribute("userRole", userRole);
         request.getRequestDispatcher("jsp/course.jsp").forward(request, response); // Переходим на страницу курса
     }
 }

@@ -76,6 +76,9 @@ public class CourseDAO {
                 course.setId(rs.getInt("id"));
                 course.setTitle(rs.getString("title"));
                 course.setDescription(rs.getString("description"));
+                course.setSubjectName(subjectDAO.getSubjectNameById(rs.getInt("subject_id")));
+                course.setTeacherName(userDAO.getUserNameById(rs.getInt("teacher_id")));
+                course.setTeacherEmail(userDAO.getEmailById(rs.getInt("teacher_id")));
             }
 
         } catch (SQLException e) {
