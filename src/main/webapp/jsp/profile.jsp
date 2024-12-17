@@ -12,7 +12,14 @@
 <jsp:include page="header.jsp" />
 <div class="profile-container">
     <h1>Profile</h1>
-    <img src="/static/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">
+    <c:choose>
+        <c:when test="${not empty user.avatar}">
+            <img src="/static/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">
+        </c:when>
+        <c:otherwise>
+            <img src="/static/avatars/default_avatar.jpg" alt="Default Avatar" class="profile-avatar">
+        </c:otherwise>
+    </c:choose>
     <p>Имя: ${user.name}</p>
     <p>Почта: ${user.email}</p>
     <p>Биография: ${user.bio}</p>
