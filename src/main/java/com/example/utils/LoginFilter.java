@@ -14,11 +14,11 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter("/*") // Применяется ко всем страницам
+@WebFilter("/*")
 public class LoginFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
         if (loggedIn || loginRequest || registerRequest || stat || courseRequest) {
             String userRole = null;
             if (session != null) {
-                User user = (User) session.getAttribute("user"); // Получаем роль пользователя
+                User user = (User) session.getAttribute("user");
                 if (user != null) {
                     userRole = user.getRole();
                 }
@@ -53,9 +53,9 @@ public class LoginFilter implements Filter {
                 return;
             }
 
-            chain.doFilter(request, response); // Пропускаем запрос
+            chain.doFilter(request, response);
         } else {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login"); // Перенаправляем на логин
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
         }
     }
 

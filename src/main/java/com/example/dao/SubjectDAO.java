@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class SubjectDAO {
     private final DBConnection instance = DBConnection.getInstance();
-    // Метод для получения названия предмета по его ID
     public String getSubjectNameById(int subjectId) {
         String subjectName = null;
         String sql = "SELECT name FROM subjects WHERE id = ?";

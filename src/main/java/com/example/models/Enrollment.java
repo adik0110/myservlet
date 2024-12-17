@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Enrollment {
     private int id;
-    private int studentId; // все инты переделать в названия
+    private int studentId;
     private int courseId;
     private Timestamp enrollmentDate;
 }

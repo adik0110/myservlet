@@ -4,14 +4,16 @@ import com.example.dao.UserDAO;
 import com.example.models.User;
 
 public class UserService {
-    private UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO;
 
-    // Метод аутентификации пользователя
+    public UserService() {
+        userDAO = new UserDAO();
+    }
+
     public User authenticateUser(String email, String password) {
         return userDAO.getUserByEmailAndPassword(email, password);
     }
 
-    // Метод регистрации пользователя
     public boolean registerUser(User user) {
         return userDAO.saveUser(user);
     }

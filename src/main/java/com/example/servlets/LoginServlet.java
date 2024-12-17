@@ -45,11 +45,10 @@ public class LoginServlet extends HttpServlet {
         User user = userService.authenticateUser(email, password);
 
         if (user != null) {
-            // Сохраняем пользователя в сессии
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
             logger.info("User logged in successfully: {}", user.getEmail());
-            resp.sendRedirect(req.getContextPath() + "/profile"); // Перенаправляем на профиль
+            resp.sendRedirect("/profile");
         } else {
             logger.warn("Login failed for email: {}", email);
             req.setAttribute("errorMessage", "Неверный email или пароль");

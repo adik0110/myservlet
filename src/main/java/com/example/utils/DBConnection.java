@@ -31,10 +31,10 @@ public class DBConnection {
             config.setMaximumPoolSize(10);
             dataSource = new HikariDataSource(config);
 
-            Flyway flyway = Flyway.configure().dataSource(dataSource).baselineOnMigrate(true).load();
-            logger.info("start migration");
-            flyway.migrate();
-            logger.info("migration done");
+//            Flyway flyway = Flyway.configure().dataSource(dataSource).baselineOnMigrate(true).load();
+//            logger.info("start migration");
+//            flyway.migrate();
+//            logger.info("migration done");
         } catch (ClassNotFoundException | FlywayException e) {
             logger.error("", e);
             e.printStackTrace();
@@ -53,17 +53,7 @@ public class DBConnection {
     }
 
     public synchronized Connection getConnection() throws SQLException {
-        Connection connection = dataSource.getConnection();
-        return connection;
-    }
-
-    /**
-     * Best practice: try (Connection connection = ds.getConnection()) { ... }
-     * @param connection
-     * @throws SQLException
-     */
-    public synchronized void releasConnection(Connection connection) throws SQLException {
-        connection.close();
+        return dataSource.getConnection();
     }
 
     public void destroy() {

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Submission {
     private int id;
-    private int assignmentId; // все инты переделать в названия
+    private int assignmentId;
     private int studentId;
     private String filePath;
     private String comment;

@@ -1,7 +1,6 @@
 package com.example.servlets;
 
 import com.example.models.User;
-import com.example.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,7 +29,7 @@ public class ProfileServlet extends HttpServlet {
             req.getRequestDispatcher("/jsp/profile.jsp").forward(req, resp);
         } else {
             logger.warn("Unauthorized access attempt to /profile");
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect("/login");
         }
     }
 }

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDAO {
-    private SubjectDAO subjectDAO = new SubjectDAO();  // DAO для subjects
-    private UserDAO userDAO = new UserDAO();
+    private final SubjectDAO subjectDAO = new SubjectDAO();  // DAO для subjects
+    private final UserDAO userDAO = new UserDAO();
     private final DBConnection instance = DBConnection.getInstance();
 
-    // Метод для добавления нового курса
+
     public void addCourse(Course course) {
         String sql = "INSERT INTO courses (title, description) VALUES (?, ?)";
 
@@ -28,7 +28,6 @@ public class CourseDAO {
         }
     }
 
-    // Метод для обновления существующего курса
     public void updateCourse(Course course) {
         String sql = "UPDATE courses SET title = ?, description = ? WHERE id = ?";
 
@@ -45,7 +44,6 @@ public class CourseDAO {
         }
     }
 
-    // Метод для удаления курса
     public void deleteCourse(int courseId) {
         String sql = "DELETE FROM courses WHERE id = ?";
 
@@ -60,7 +58,6 @@ public class CourseDAO {
         }
     }
 
-    // Метод для получения курса по ID
     public Course getCourseById(int courseId) {
         String sql = "SELECT * FROM courses WHERE id = ?";
         Course course = null;
@@ -88,7 +85,6 @@ public class CourseDAO {
         return course;
     }
 
-    // Метод для получения всех курсов
     public List<Course> getAllCourses() {
         String sql = "SELECT * FROM courses";
         List<Course> courses = new ArrayList<>();

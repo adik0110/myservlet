@@ -13,7 +13,7 @@ public class Assignment {
     private int id;
     private String title;
     private String description;
-    private int courseId; // сделать courseName
+    private int courseId;
     private Timestamp endTime;
-    private int status; // тут пока хз
+    private int status;
 }

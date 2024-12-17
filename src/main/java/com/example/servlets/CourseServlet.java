@@ -35,23 +35,23 @@ public class CourseServlet extends HttpServlet {
 
         switch (action) {
             case "list":
-                listCourses(request, response); // Показать список курсов
+                listCourses(request, response);
                 break;
             case "view":
-                viewCourse(request, response); // Просмотр конкретного курса
+                viewCourse(request, response);
                 break;
-            default:
-                listCourses(request, response); // По умолчанию — показать список курсов
+            case "work":
+//                workCourse(request, response);
                 break;
         }
     }
 
     // Метод для показа списка курсов
     private void listCourses(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Course> courses = courseService.getAllCourses(); // Получаем список курсов
+        List<Course> courses = courseService.getAllCourses();
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user"); // Получаем роль пользователя
+        User user = (User) session.getAttribute("user");
         String userRole = null;
         if (user != null) {
             userRole = user.getRole();
@@ -60,10 +60,9 @@ public class CourseServlet extends HttpServlet {
         request.setAttribute("userRole", userRole);
         request.setAttribute("courses", courses);
 
-        request.getRequestDispatcher("jsp/courseList.jsp").forward(request, response); // Используем отдельную JSP для списка
+        request.getRequestDispatcher("jsp/courseList.jsp").forward(request, response);
     }
 
-    // Метод для просмотра конкретного курса
     private void viewCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int courseId = Integer.parseInt(request.getParameter("id"));
         Course course = courseService.getCourseById(courseId);
@@ -76,6 +75,6 @@ public class CourseServlet extends HttpServlet {
         request.setAttribute("course", course);
         request.setAttribute("userEmail", userEmail);
         request.setAttribute("userRole", userRole);
-        request.getRequestDispatcher("jsp/course.jsp").forward(request, response); // Переходим на страницу курса
+        request.getRequestDispatcher("jsp/course.jsp").forward(request, response);
     }
 }

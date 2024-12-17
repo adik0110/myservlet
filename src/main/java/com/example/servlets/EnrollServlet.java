@@ -4,7 +4,6 @@ import com.example.models.Course;
 import com.example.models.User;
 import com.example.services.CourseService;
 import com.example.services.EnrollmentService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +28,7 @@ public class EnrollServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String courseId = req.getParameter("courseId");
         HttpSession session = req.getSession(false);
 

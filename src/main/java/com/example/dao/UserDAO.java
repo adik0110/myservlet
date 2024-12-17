@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserDAO {
     private final DBConnection instance = DBConnection.getInstance();
 
-    // Метод для получения пользователя по email и паролю
     public User getUserByEmailAndPassword(String email, String password) {
         User user = null;
         try (Connection conn = instance.getConnection()) {
@@ -89,7 +88,6 @@ public class UserDAO {
         return roleId;
     }
 
-    // Метод для сохранения нового пользователя
     public boolean saveUser(User user) {
         if (isEmailRegistered(user.getEmail())) {
             return false;
@@ -110,7 +108,6 @@ public class UserDAO {
         return false;
     }
 
-    // Проверка, зарегистрирован ли email
     public boolean isEmailRegistered(String email) {
         try (Connection conn = instance.getConnection()) {
             String query = "SELECT COUNT(*) FROM users WHERE email = ?";
@@ -119,7 +116,7 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Если возвращено больше 0 записей, email уже существует
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +135,7 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                teacherName = rs.getString("name");  // Получаем имя преподавателя
+                teacherName = rs.getString("name");
             }
         } catch (SQLException e) {
             e.printStackTrace();

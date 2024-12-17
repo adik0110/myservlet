@@ -1,7 +1,5 @@
 package com.example.servlets;
 
-import com.example.services.UserService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +21,6 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
             logger.info("Session invalidated");
         }
-        resp.sendRedirect(req.getContextPath() + "/login");
+        resp.sendRedirect("/login");
     }
 }

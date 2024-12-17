@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class EnrollmentService {
-    private EnrollmentDAO enrollmentDAO;
+    private final EnrollmentDAO enrollmentDAO;
 
     public EnrollmentService() {
         enrollmentDAO = new EnrollmentDAO();
