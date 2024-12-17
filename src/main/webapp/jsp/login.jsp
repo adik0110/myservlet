@@ -13,14 +13,12 @@
 <div class="login-container">
     <h2>Login to Your Account</h2>
 
-    <!-- Ошибка -->
     <c:if test="${not empty errorMessage}">
         <div class="error-message">
                 ${errorMessage}
         </div>
     </c:if>
 
-    <!-- Форма для авторизации -->
     <form method="post">
 
         <div class="form-group">

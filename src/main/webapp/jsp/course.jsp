@@ -17,17 +17,14 @@
     <p><strong>Преподаватель:</strong> ${course.teacherName}</p>
     <p><strong>Описание:</strong> ${course.description}</p>
 
-    <%-- Проверяем роль пользователя --%>
     <c:choose>
         <c:when test="${userRole == 'Студент'}">
             <a href="/enroll?courseId=${course.id}" class="button">Subscribe</a>
         </c:when>
         <c:when test="${userEmail == course.teacherEmail}">
-            <%-- Если роль учителя, показываем кнопку "Редактировать" --%>
             <a href="/editCourse?courseId=${course.id}" class="button edit-button">Edit Course</a>
         </c:when>
         <c:otherwise>
-            <%-- Если роль не определена, показываем сообщение --%>
             <p>У вас нет прав на редактирование и подписку</p>
         </c:otherwise>
     </c:choose>

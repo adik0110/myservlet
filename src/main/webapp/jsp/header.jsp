@@ -8,7 +8,7 @@
         <a href="course" class="nav-button">Главная</a>
         <c:choose>
             <c:when test="${not empty user}">
-                <a href="my-courses" class="nav-button">Мои курсы</a>
+                <a href="course?action=view-my-courses" class="nav-button">Мои курсы</a>
                 <a href="profile" class="nav-button">Профиль</a>
             </c:when>
             <c:otherwise>
