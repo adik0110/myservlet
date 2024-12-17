@@ -26,8 +26,8 @@
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            HttpSession session = req.getSession();
-            if (session.getAttribute("user") != null) {
+            HttpSession session = req.getSession(false);
+            if (session != null && session.getAttribute("user") != null) {
                 logger.warn("Attempt to re-register");
                 resp.sendRedirect("/profile");
             } else {
