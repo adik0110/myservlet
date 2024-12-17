@@ -25,8 +25,14 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("GET request to /login");
-        req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null) {
+            logger.warn("Reauthorization attempt");
+            resp.sendRedirect("/profile");
+        } else {
+            logger.info("GET request to /login");
+            req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
+        }
     }
 
     @Override

@@ -72,7 +72,6 @@ public class CourseServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String userEmail = user.getEmail();
         String userRole = user.getRole();
-        System.out.println(course.getTeacherName());
 
         request.setAttribute("course", course);
         request.setAttribute("userEmail", userEmail);

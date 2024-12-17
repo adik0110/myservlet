@@ -7,6 +7,7 @@
     import jakarta.servlet.http.HttpServlet;
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.servlet.http.HttpServletResponse;
+    import jakarta.servlet.http.HttpSession;
     import org.apache.logging.log4j.LogManager;
     import org.apache.logging.log4j.Logger;
     import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -25,8 +26,14 @@
 
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            logger.info("GET request to /register");
-            req.getRequestDispatcher("/jsp/register.jsp").forward(req, resp);
+            HttpSession session = req.getSession();
+            if (session.getAttribute("user") != null) {
+                logger.warn("Attempt to re-register");
+                resp.sendRedirect("/profile");
+            } else {
+                logger.info("GET request to /register");
+                req.getRequestDispatcher("/jsp/register.jsp").forward(req, resp);
+            }
         }
 
         @Override
