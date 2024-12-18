@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="header.jsp" />
 <div class="profile-container">
-    <h1>Profile</h1>
+    <h1>Профиль</h1>
     <c:choose>
         <c:when test="${not empty user.avatar}">
             <img src="/static/avatars/${user.avatar}" alt="Avatar" class="profile-avatar">
@@ -25,6 +25,27 @@
     <p>Биография: ${user.bio}</p>
     <p>Роль: ${user.role}</p>
 
+    <!-- Форма для изменения данных -->
+    <form action="profile" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="updateProfile">
+
+        <!-- Загрузка аватарки -->
+        <div>
+            <label for="avatar">Загрузить аватарку:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+        </div>
+
+        <!-- Изменение биографии -->
+        <div>
+            <label for="bio">Биография:</label>
+            <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+        </div>
+
+        <!-- Кнопка отправки -->
+        <button type="submit" class="update-button">Сохранить изменения</button>
+    </form>
+
+    <!-- Кнопка выхода -->
     <form action="logout" method="post">
         <input type="hidden" name="action" value="logout">
         <button type="submit" class="logout-button">Logout</button>

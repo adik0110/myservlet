@@ -71,6 +71,19 @@ public class UserDAO {
         return email;
     }
 
+    public void updateUser(User user) throws SQLException {
+        String sql = "UPDATE users SET avatar = ?, bio = ? WHERE id = ?";
+
+        try (Connection conn = instance.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getAvatar());
+            stmt.setString(2, user.getBio());
+            stmt.setInt(3, user.getId());
+            stmt.executeUpdate();
+        }
+    }
+
     public int getRoleIdByName(String roleName) {
         int roleId = -1;
         try (Connection conn = instance.getConnection()) {

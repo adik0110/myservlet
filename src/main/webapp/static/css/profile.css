@@ -12,16 +12,6 @@ body {
 
 }
 
-.profile-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-}
-
 .profile-container img {
     border-radius: 50%;
     width: 100px;
@@ -35,15 +25,10 @@ body {
     color: #333;
 }
 
-.profile-container p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
-}
 
 .profile-container .form-group {
     margin-bottom: 15px;
-    text-align: left; /* Выравнивание текста по левому краю */
+    text-align: center; /* Выравнивание текста по левому краю */
 }
 
 .logout-button {
@@ -58,5 +43,64 @@ body {
 }
 
 .logout-button:hover {
+    background-color: #45a049;
+}
+
+/* Стили для контейнера профиля */
+.profile-container {
+    max-width: 600px; /* Ограничиваем максимальную ширину контейнера */
+    margin: 0 auto; /* Центрируем контейнер */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Стили для аватарки */
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+/* Стили для текстовых данных */
+.profile-container p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Стили для формы изменения профиля */
+.profile-container form {
+    margin-top: 20px;
+}
+
+.profile-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.profile-container input[type="file"],
+.profile-container textarea {
+    width: 100%; /* Занимает всю ширину контейнера */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Учитываем padding и border в общей ширине */
+}
+
+.profile-container .update-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-container .update-button:hover {
     background-color: #45a049;
 }
