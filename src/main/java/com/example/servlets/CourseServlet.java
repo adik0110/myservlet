@@ -1,9 +1,11 @@
 package com.example.servlets;
 
 
+import com.example.models.Assignment;
 import com.example.models.Enrollment;
 import com.example.models.User;
 import com.example.models.Course;
+import com.example.services.AssignmentService;
 import com.example.services.CourseService;
 
 import com.example.services.EnrollmentService;
@@ -26,11 +28,13 @@ public class CourseServlet extends HttpServlet {
 
     private CourseService courseService;
     private EnrollmentService enrollmentService;
+    private AssignmentService assignmentService;
 
     @Override
     public void init() {
         courseService = new CourseService();
         enrollmentService = new EnrollmentService();
+        assignmentService = new AssignmentService();
     }
 
     @Override
@@ -48,42 +52,38 @@ public class CourseServlet extends HttpServlet {
             case "view":
                 viewCourse(request, response);
                 break;
-            case "work":
-//                workCourse(request, response);
+            case "view-assignment":
+                showAssignment(request, response);
                 break;
             case "view-my-courses":
                 viewMyCourses(request, response);
                 break;
+            case "view-assignments":
+                viewAssignments(request, response);
+                break;
         }
     }
 
-    // Метод для показа списка курсов
     private void listCourses(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // Получаем пользователя из сессии
         User user = (User) session.getAttribute("user");
         String userRole = null;
         if (user != null) {
             userRole = user.getRole();
         }
 
-        // Получаем все курсы
         List<Course> allCourses = courseService.getAllCourses();
 
-        // Если пользователь авторизован, получаем список курсов, на которые он уже подписан
         List<Course> filteredCourses = new ArrayList<>(allCourses);
         if (user != null) {
             try {
-                // Получаем список подписок пользователя
                 List<Enrollment> userEnrollments = enrollmentService.getEnrollmentsByStudentId(user.getId());
 
-                // Создаем множество ID курсов, на которые пользователь уже подписан
                 Set<Integer> enrolledCourseIds = userEnrollments.stream()
                         .map(Enrollment::getCourseId)
                         .collect(Collectors.toSet());
 
-                // Фильтруем курсы, исключая те, на которые пользователь уже подписан
                 filteredCourses = allCourses.stream()
                         .filter(course -> !enrolledCourseIds.contains(course.getId()))
                         .collect(Collectors.toList());
@@ -93,11 +93,9 @@ public class CourseServlet extends HttpServlet {
             }
         }
 
-        // Передаем роль пользователя и отфильтрованный список курсов в JSP
         request.setAttribute("userRole", userRole);
         request.setAttribute("courses", filteredCourses);
 
-        // Перенаправляем запрос на JSP
         request.getRequestDispatcher("jsp/courseList.jsp").forward(request, response);
     }
 
@@ -148,5 +146,46 @@ public class CourseServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new ServletException("Failed to retrieve user's courses", e);
         }
+    }
+
+    private void showAssignment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String assignmentId = request.getParameter("id");
+
+        Assignment assignment = assignmentService.getAssignmentById(Integer.parseInt(assignmentId));
+        if (assignment == null) {
+            response.sendRedirect("/courses");
+            return;
+        }
+
+        request.setAttribute("assignment", assignment);
+        request.getRequestDispatcher("/jsp/assignmentDetails.jsp").forward(request, response);
+    }
+
+    private void viewAssignments(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Получаем параметр courseId из запроса
+        String courseIdParam = request.getParameter("id");
+
+        if (courseIdParam == null || courseIdParam.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/courses");
+            return;
+        }
+
+        int courseId = Integer.parseInt(courseIdParam);
+
+        // Получаем курс по courseId
+        Course course = courseService.getCourseById(courseId);
+        if (course == null) {
+            response.sendRedirect(request.getContextPath() + "/courses");
+            return;
+        }
+
+        // Получаем список заданий курса
+        List<Assignment> assignments = assignmentService.getAssignmentsByCourseId(courseId);
+
+        // Передаем данные в JSP
+        request.setAttribute("course", course);
+        request.setAttribute("assignments", assignments);
+        request.getRequestDispatcher("/jsp/courseAssignments.jsp").forward(request, response);
+
     }
 }

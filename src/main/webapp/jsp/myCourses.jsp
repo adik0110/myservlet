@@ -19,7 +19,7 @@
             <h2>${course.title}</h2>
             <p><strong>Предмет:</strong> ${course.subjectName}</p>
             <p><strong>Преподаватель:</strong> ${course.teacherName}</p>
-            <a href="/course?action=work&id=${course.id}" class="btn-view">Подробнее</a>
+            <a href="/course?action=view-assignments&id=${course.id}" class="btn-view">Подробнее</a>
         </div>
     </c:forEach>
 </div>

@@ -50,7 +50,7 @@ public class EnrollServlet extends HttpServlet {
         try {
             if (enrollmentService.isEnrolled(user.getId(), course.getId())) {
                 logger.info("User {} is already enrolled in course {}.", user.getEmail(), course.getId());
-                resp.sendRedirect("/course?action=work&id=" + course.getId());
+                resp.sendRedirect("/course?action=view-assignments&id=" + course.getId());
                 return;
             }
         } catch (SQLException e) {
@@ -64,6 +64,6 @@ public class EnrollServlet extends HttpServlet {
         }
         logger.info("User {} enrolled in course {}.", user.getEmail(), course.getId());
 
-        resp.sendRedirect("/course?action=work&id=" + course.getId());
+        resp.sendRedirect("/course?action=view-assignments&id=" + course.getId());
     }
 }
