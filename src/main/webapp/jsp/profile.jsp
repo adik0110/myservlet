@@ -50,6 +50,12 @@
         <input type="hidden" name="action" value="logout">
         <button type="submit" class="logout-button">Logout</button>
     </form>
+
+    <!-- Кнопка удаления аккаунта -->
+    <form action="deleteAccount" method="post">
+        <input type="hidden" name="action" value="deleteAccount">
+        <button type="submit" class="delete-account-button" onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Удалить аккаунт</button>
+    </form>
 </div>
 <jsp:include page="footer.jsp" />
 </body>

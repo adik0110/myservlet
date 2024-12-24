@@ -156,4 +156,15 @@ public class UserDAO {
 
         return teacherName;
     }
+
+    public void deleteUserById(int userId) throws SQLException {
+        String sql = "DELETE FROM users WHERE id = ?";
+
+        try (Connection conn = instance.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            stmt.executeUpdate();
+        }
+    }
 }
